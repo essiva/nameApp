@@ -3,7 +3,8 @@
 const express = require("express"),
       app = express(),
       httpStatus = require("http-status-codes"),
-      layouts = require("express-ejs-layouts");
+      layouts = require("express-ejs-layouts"),
+      homeController = require("./controllers/homeController");
 
 
 app.set("port", process.env.PORT || 3000);
@@ -19,9 +20,12 @@ app.use(
 app.use(express.json());
 app.use(express.static("public"));
 
-app.get("/", (req,res) => {
-    res.send("Name Application");
-});
+
+app.locals.nameData = require("./names.json");
+
+
+//routers
+app.get("/", homeController.homePage);
 
 
 
